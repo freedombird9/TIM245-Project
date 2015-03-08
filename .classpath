@@ -2,19 +2,18 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/commons-codec-1.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/commons-io-2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/joda-time-2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/jsoup-1.6.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/opencsv-2.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/sqlitejdbc-v056.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/httpcomponents/commons-codec-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/httpcomponents/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/httpcomponents/httpclient-4.1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/httpcomponents/httpclient-cache-4.1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/httpcomponents/httpcore-4.1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/project/crawler/customer-review-crawler-master/lib/httpcomponents/httpmime-4.1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/TIM245/pro/lib/jsoup-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/joda-time-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/jsoup-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/opencsv-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/sqlitejdbc-v056.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents/httpclient-4.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents/httpclient-cache-4.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents/httpcore-4.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpcomponents/httpmime-4.1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
