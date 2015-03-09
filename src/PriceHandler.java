@@ -7,9 +7,10 @@ public class PriceHandler {
 	int priceCounter = 0;
 	boolean inDollarSign=false;
 	boolean inList = false;
-	int listStartDepth = -1;
+//	int listStartDepth = -1;
 	String curDollar = "";
 	int currencyStartDepth = -1;
+	int hashId = 0;
 	public void start(Node node, TitleHandler titleHandler, int nodeId, int depth, HashMap<Integer, Features> records){
 		if(!titleHandler.inBody)
 			return;
@@ -25,15 +26,15 @@ public class PriceHandler {
 		}
 		if(node.nodeName()=="#text"){
 			String text = node.toString().toLowerCase().trim();
-			if(text.indexOf("price")>=0){
-				this.priceCounter++;	
-			}
+//			if(text.indexOf("price")>=0){
+//				this.priceCounter++;	
+//			}
 			if( this.priceCounter<=0 || text.length()<1){
 				return;
 			}
-			if(text.indexOf("list")>=0){
+			if(text.indexOf("list")>=0 && text.indexOf("price")>=0){
 				inList = true;
-				this.listStartDepth = depth-1;
+//				this.listStartDepth = depth-1;
 				return;
 			}
 			if(!containCurrency(text)){
@@ -63,17 +64,10 @@ public class PriceHandler {
 		if(name!=null && name.indexOf("price")>=0){
 			this.priceCounter--;
 		}
-		if(node.nodeName()=="#text"){
-			String text = node.toString().toLowerCase().trim();
-			if(text.indexOf("price")>=0){
-				this.priceCounter--;	
-			}
-			Features f = records.get(node.hashCode());
-			if(f==null){
-				f = new Features();
-				records.put(node.hashCode(),f);
-			}
-			if(inDollarSign && depth==currencyStartDepth){
+		if(inDollarSign){
+			if(depth==currencyStartDepth){
+				Features f = new Features();
+				records.put(this.hashId++,f);
 				f.addFeature("termial", true);
 				f.addFeature("text", curDollar);
 				f.addFeature("priceInAttr", priceInAttr);
@@ -81,24 +75,32 @@ public class PriceHandler {
 				f.addFeature("listPrice", inList);
 				f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
 				f.addFeature("sequentialId", nodeId);
+				if(this.curDollar.indexOf("65.0")>=0){
+					System.out.println(node);
+					System.out.println(nodeId);
+				}
 				inDollarSign=false;
-//				System.out.println("!!!!!!!!text!!!!!!");
-//				System.out.println(curDollar);
-//				System.out.println("nodeId:"+nodeId);
-//				System.out.println("tc"+titleHandler.titleCounter);
-//				System.out.println("title last seen"+titleHandler.titleLastSeen);
-			}else{
-				f.addFeature("termial", false);
-				f.addFeature("text", text);
-				f.addFeature("priceInAttr", priceInAttr);
-				f.addFeature("currency", false);
-				f.addFeature("listPrice", inList);
-				f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
-				f.addFeature("sequentialId", nodeId);
+				if(inList)
+					inList=false;
 			}
-		}
-		if(inList && depth == this.listStartDepth){
-			inList=false;
+			return;
+		}else if(node.nodeName()=="#text"){
+			String text = node.toString().toLowerCase().trim();
+			if(text.length()==0){
+				return;
+			}
+//			if(text.indexOf("price")>=0){
+//				this.priceCounter--;	
+//			}
+			Features f = new Features();
+			records.put(this.hashId++,f);
+			f.addFeature("termial", false);
+			f.addFeature("text", text);
+			f.addFeature("priceInAttr", priceInAttr);
+			f.addFeature("currency", false);
+			f.addFeature("listPrice", inList);
+			f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
+			f.addFeature("sequentialId", nodeId);
 		}
 	}
 	
