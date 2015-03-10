@@ -11,7 +11,7 @@ public class PriceHandler {
 	String curDollar = "";
 	int currencyStartDepth = -1;
 	int hashId = 0;
-	public void start(Node node, TitleHandler titleHandler, int nodeId, int depth, HashMap<Integer, Features> records){
+	public void start(Node node, TitleHandler titleHandler, int depth, HashMap<Integer, Features> records){
 		if(!titleHandler.inBody)
 			return;
 		String id = node.attr("id")==null?"":node.attr("id").toLowerCase();
@@ -75,10 +75,6 @@ public class PriceHandler {
 				f.addFeature("listPrice", inList);
 				f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
 				f.addFeature("sequentialId", nodeId);
-				if(this.curDollar.indexOf("65.0")>=0){
-					System.out.println(node);
-					System.out.println(nodeId);
-				}
 				inDollarSign=false;
 				if(inList)
 					inList=false;

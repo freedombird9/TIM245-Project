@@ -23,26 +23,21 @@ public class Parser {
 		final PriceHandler priceHandler = new PriceHandler();
 		final HashMap <Integer, Features> titleFeatures = new HashMap <Integer, Features>();
 		final HashMap <Integer, Features> priceFeatures = new HashMap <Integer, Features>();
-//		final HtmlInfo info = new HtmlInfo();
-//		info.sequentialNodeId=0;
-		final HashMap <Integer, Integer> idMap = new HashMap <Integer, Integer>();
+		final HtmlInfo info = new HtmlInfo();
 		doc.traverse(new NodeVisitor(){
 
 			@Override
 			public void head(Node node, int depth) {
 				// TODO Auto-generated method stub
-				int sequentialNodeId = idMap.size();
-				idMap.put(node.hashCode(), sequentialNodeId);
-				titleHandler.start(node, sequentialNodeId, titleFeatures);
-				priceHandler.start(node,titleHandler, sequentialNodeId, depth, priceFeatures);
+				titleHandler.start(node, info.sequentialNodeId++, titleFeatures);
+				priceHandler.start(node,titleHandler,  depth, priceFeatures);
 			}
 
 			@Override
 			public void tail(Node node, int depth) {
 				// TODO Auto-generated method stub
 				titleHandler.end(node, titleFeatures);
-				int hid = node.nodeName()=="#text"?node.parent().hashCode():node.hashCode();
-				priceHandler.end(node,titleHandler, idMap.get(hid), depth, priceFeatures);
+				priceHandler.end(node,titleHandler, info.sequentialNodeId, depth, priceFeatures);
 			}
 			
 		});
