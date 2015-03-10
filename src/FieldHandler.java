@@ -11,7 +11,7 @@ public class FieldHandler {
 		
 	}
 	
-	public void end(Node node, TitleHandler titleHandler, int depth, HashMap<Integer, Features> records){
+	public void end(Node node, TitleHandler titleHandler, int nodeId, int depth, HashMap<Integer, Features> records){
 		
 	}
 	public void end(Node node, int nodeId, HashMap <Integer, Features> records){

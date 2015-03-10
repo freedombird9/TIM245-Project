@@ -31,11 +31,8 @@ public class ImageHandler extends FieldHandler{
 			this.isImage = true;
 		else this.isImage = false;
 		
-		if(node.attr("src")!= null && node.attr("src") == "http://ecx.images-amazon.com/images/I/31srOobQUJL._SY300_.jpg")
+		if(node.attr("src").indexOf("http://ecx.images-amazon.com/images/I/31srOobQUJL._SY300_.jpg")>=0)
 			System.out.println("sequential ID: "+nodeId);
-		
-		if(node.attr("src")!=null)
-			System.out.println(node.attr("src"));
 		
 		String itemprop = node.attr("itemprop")==null?"":node.attr("itemprop").toLowerCase();
 		this.depth = depth - 1;
@@ -47,7 +44,7 @@ public class ImageHandler extends FieldHandler{
 			this.liCounter++;
 		if(node.nodeName() == "table")
 			this.tableCounter++;
-		if(node.attr("width")!=null || node.attr("height")!=null)
+		if(node.attr("width").length()>0 || node.attr("height").length()>0)
 			this.hasScaling = true;
 		else this.hasScaling = false;
 		
@@ -59,7 +56,7 @@ public class ImageHandler extends FieldHandler{
 			this.inTable = true;
 		else this.inTable = false;
 		
-		if(node.attr("alt") != null){
+		if(node.attr("alt").length() > 0){
 			text = node.attr("alt").toLowerCase();
 			ics = lcs(text, titleHandler.htmlTitle);
 			altTitleSimiScore = ics.length()/(double)Math.max(titleHandler.htmlTitle.length(),text.length());
@@ -70,7 +67,7 @@ public class ImageHandler extends FieldHandler{
 	
 
 	@Override
-	public void end(Node node, TitleHandler titleHandler, int depth,
+	public void end(Node node, TitleHandler titleHandler, int nodeId, int depth,
 			HashMap<Integer, Features> records) {
 		// TODO Auto-generated method stub
 		if(!titleHandler.inBody)
@@ -87,7 +84,7 @@ public class ImageHandler extends FieldHandler{
 		Features f = new Features();
 		records.put(this.hashId++,f);
 		
-		//f.addFeature("sequentialId", nodeId);
+		f.addFeature("sequentialId", nodeId);
 		f.addFeature("termial", isTerminal);
 		f.addFeature("img", isImage);
 		f.addFeature("imgprop", imageItemprop);
@@ -95,7 +92,7 @@ public class ImageHandler extends FieldHandler{
 		f.addFeature("inTable", inTable);
 		f.addFeature("Scaling", hasScaling);
 		f.addFeature("simiScore", altTitleSimiScore);
-		//f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
+		f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
 		
 	}
 

@@ -26,24 +26,30 @@ public class Parser {
 		final HashMap <Integer, Features> titleFeatures = new HashMap <Integer, Features>();
 		final HashMap <Integer, Features> priceFeatures = new HashMap <Integer, Features>();
 		final HashMap <Integer, Features> imageFeatures = new HashMap <Integer, Features>();
-		final HtmlInfo info = new HtmlInfo();
+		//final HtmlInfo info = new HtmlInfo();
+		
+		final HashMap <Node, Integer> idMap = new HashMap <Node, Integer>();
 		doc.traverse(new NodeVisitor(){
 
 			@Override
 			public void head(Node node, int depth) {
 				// TODO Auto-generated method stub
-				//System.out.println("node hash "+ node.hashCode());
-				titleHandler.start(node, info.sequentialNodeId++, titleFeatures);
+				int sequentialNodeId = idMap.size();
+				//System.out.println("node hash "+ sequentialNodeId);
+				idMap.put(node, sequentialNodeId);
+				titleHandler.start(node, sequentialNodeId, titleFeatures);
 				priceHandler.start(node,titleHandler,depth, priceFeatures);
-				imageHandler.start(node, titleHandler, info.sequentialNodeId, depth, titleFeatures);
+				imageHandler.start(node, titleHandler, sequentialNodeId, depth, titleFeatures);
 			}
 
 			@Override
 			public void tail(Node node, int depth) {
 				// TODO Auto-generated method stub
 				titleHandler.end(node, titleFeatures);
-				priceHandler.end(node,titleHandler, info.sequentialNodeId, depth, priceFeatures);
-				imageHandler.end(node, titleHandler, depth, imageFeatures);
+				
+				Node hid = node.nodeName()=="#text"?node.parent():node;
+				priceHandler.end(node,titleHandler, idMap.get(hid), depth, priceFeatures);
+				imageHandler.end(node, titleHandler, idMap.get(hid) , depth, imageFeatures);
 			}
 			
 		});
@@ -51,6 +57,7 @@ public class Parser {
 //			outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures);
 //			outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
 			outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\images.csv", imageFeatures);
+			outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\prices.csv", priceFeatures);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
