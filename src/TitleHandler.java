@@ -41,11 +41,11 @@ public class TitleHandler extends FieldHandler {
 			String text = node.toString().toLowerCase().trim();
 			String lcs = lcs(text,this.htmlTitle);
 			double score = lcs.length()/(double)Math.max(this.htmlTitle.length(),text.length());
-			Features f = records.get(node.hashCode());
+			Features f = records.get(nodeId);
 			if(f==null){
 				f = new Features();
 			}
-			records.put(node.hashCode(), f);
+			records.put(nodeId, f);
 			if( this.titleCounter<=0){
 				f.addFeature("titleInAttr", false);
 				f.addFeature("text", text);
