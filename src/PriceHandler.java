@@ -60,8 +60,7 @@ public class PriceHandler {
 			this.priceCounter--;
 		}else if(id!=null && id.indexOf("price")>=0){
 			this.priceCounter--;
-		}
-		if(name!=null && name.indexOf("price")>=0){
+		}else if(name!=null && name.indexOf("price")>=0){
 			this.priceCounter--;
 		}
 		if(inDollarSign){
