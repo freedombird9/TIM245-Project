@@ -17,20 +17,25 @@ public class Parser {
 
 	public static void main(String[] args) throws IOException{
 //		File input = new File("/Users/peijiang/tim245/169694643.html");
-		File input = new File("/Users/peijiang/tim245/B0000A1ZMS.html");
+//		File input = new File("/Users/peijiang/tim245/B0000A1ZMS.html");
+		File input = new File("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\pages\\Amazon\\coffe_makers\\B0000A1ZMS.html");
 		Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
 		final TitleHandler titleHandler = new TitleHandler();
 		final PriceHandler priceHandler = new PriceHandler();
+		final ImageHandler imageHandler = new ImageHandler();
 		final HashMap <Integer, Features> titleFeatures = new HashMap <Integer, Features>();
 		final HashMap <Integer, Features> priceFeatures = new HashMap <Integer, Features>();
+		final HashMap <Integer, Features> imageFeatures = new HashMap <Integer, Features>();
 		final HtmlInfo info = new HtmlInfo();
 		doc.traverse(new NodeVisitor(){
 
 			@Override
 			public void head(Node node, int depth) {
 				// TODO Auto-generated method stub
+				//System.out.println("node hash "+ node.hashCode());
 				titleHandler.start(node, info.sequentialNodeId++, titleFeatures);
-				priceHandler.start(node,titleHandler,  depth, priceFeatures);
+				priceHandler.start(node,titleHandler,depth, priceFeatures);
+				imageHandler.start(node, titleHandler, info.sequentialNodeId, depth, titleFeatures);
 			}
 
 			@Override
@@ -38,12 +43,14 @@ public class Parser {
 				// TODO Auto-generated method stub
 				titleHandler.end(node, titleFeatures);
 				priceHandler.end(node,titleHandler, info.sequentialNodeId, depth, priceFeatures);
+				imageHandler.end(node, titleHandler, depth, imageFeatures);
 			}
 			
 		});
 		try{
-			outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures);
-			outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
+//			outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures);
+//			outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
+			outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\images.csv", imageFeatures);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
