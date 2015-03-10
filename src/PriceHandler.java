@@ -10,7 +10,7 @@ public class PriceHandler {
 //	int listStartDepth = -1;
 	String curDollar = "";
 	int currencyStartDepth = -1;
-	int hashId = 0;
+//	int hashId = 0;
 	public void start(Node node, TitleHandler titleHandler, int depth, HashMap<Integer, Features> records){
 		if(!titleHandler.inBody)
 			return;
@@ -66,7 +66,7 @@ public class PriceHandler {
 		if(inDollarSign){
 			if(depth==currencyStartDepth){
 				Features f = new Features();
-				records.put(this.hashId++,f);
+				records.put(nodeId,f);
 				f.addFeature("termial", true);
 				f.addFeature("text", curDollar);
 				f.addFeature("priceInAttr", priceInAttr);
@@ -88,7 +88,7 @@ public class PriceHandler {
 //				this.priceCounter--;	
 //			}
 			Features f = new Features();
-			records.put(this.hashId++,f);
+			records.put(nodeId,f);
 			f.addFeature("termial", false);
 			f.addFeature("text", text);
 			f.addFeature("priceInAttr", priceInAttr);
