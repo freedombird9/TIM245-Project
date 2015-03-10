@@ -82,7 +82,7 @@ public class ImageHandler extends FieldHandler{
 		else this.isTerminal = false;
 		
 		Features f = new Features();
-		records.put(this.hashId++,f);
+		records.put(nodeId, f);
 		
 		f.addFeature("sequentialId", nodeId);
 		f.addFeature("termial", isTerminal);
