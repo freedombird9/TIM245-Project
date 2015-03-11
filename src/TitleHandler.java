@@ -18,7 +18,7 @@ public class TitleHandler extends FieldHandler {
 		
 		if(node.nodeName().indexOf("title")>=0){
 			if(node.childNodeSize()>0 && node.childNode(0).nodeName()=="#text"){
-				System.out.println("html title:"+node.childNode(0).toString());
+				//System.out.println("html title:"+node.childNode(0).toString());
 				this.htmlTitle = node.childNode(0).toString().toLowerCase().trim();	
 			}
 			
