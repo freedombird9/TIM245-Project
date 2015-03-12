@@ -10,9 +10,6 @@ public class ImageHandler extends FieldHandler{
 	private boolean inList = false;
 	private boolean inTable = false;
 	private boolean hasScaling = false;
-	private boolean isTerminal = false;
-	private int hashId = 0;
-	private int depth = -1;
 	
 	
 	private int liCounter=0;
@@ -31,11 +28,11 @@ public class ImageHandler extends FieldHandler{
 			this.isImage = true;
 		else this.isImage = false;
 		
-		if(node.attr("src").indexOf("http://ecx.images-amazon.com/images/I/31srOobQUJL._SY300_.jpg")>=0)
-			System.out.println("sequential ID: "+nodeId);
+//		if(node.attr("src").indexOf("http://ecx.images-amazon.com/images/I/41Kg4oo4yqL._SY300_.jpg")>=0)
+//			System.out.println("sequential ID: "+nodeId);
 		
 		String itemprop = node.attr("itemprop")==null?"":node.attr("itemprop").toLowerCase();
-		this.depth = depth - 1;
+
 		
 		if(itemprop != null && itemprop.indexOf("image")>=0)
 			this.imageItemprop = true;
@@ -77,23 +74,23 @@ public class ImageHandler extends FieldHandler{
 			this.liCounter--;
 		if(node.nodeName() == "table")
 			this.tableCounter--;
-		if(this.depth == depth)
-			this.isTerminal = true;
-		else this.isTerminal = false;
-		
-		Features f = new Features();
-		records.put(this.hashId++,f);
-		
-		f.addFeature("sequentialId", nodeId);
-		f.addFeature("termial", isTerminal);
-		f.addFeature("img", isImage);
-		f.addFeature("imgprop", imageItemprop);
-		f.addFeature("inList", inList);
-		f.addFeature("inTable", inTable);
-		f.addFeature("Scaling", hasScaling);
-		f.addFeature("simiScore", altTitleSimiScore);
-		f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
-		
+				
+		if(isImage){
+			Features f = new Features();
+			records.put(nodeId, f);
+			
+			f.addFeature("sequentialId", nodeId);
+			f.addFeature("imgprop", imageItemprop);
+			f.addFeature("inList", inList);
+			f.addFeature("inTable", inTable);
+			f.addFeature("Scaling", hasScaling);
+			f.addFeature("similarity", altTitleSimiScore);
+			f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
+			
+			if(!hasScaling && !inTable && !inList && node.attr("style").indexOf("display:none;")>=0 && node.parent().attr("id").indexOf("rwImages_hidden")>=0)
+				f.addFeature("class", 1);
+			else f.addFeature("class", 0);
+		}
 	}
 
 }
