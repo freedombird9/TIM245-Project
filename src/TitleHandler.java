@@ -9,10 +9,13 @@ public class TitleHandler extends FieldHandler {
 	int titleLastSeen = -1;
 	boolean inBody = false;
 	int treeSize=0;
-	public TitleHandler(int treeSize){
+	private String website;
+	
+	public TitleHandler(int treeSize, String website){
 		this.treeSize = treeSize;
+		this.website = website;
 	}
-	public void start(Node node, int nodeId, HashMap <Integer, Features> records){
+	public void start(Node node, int nodeId, HashMap <Integer, Features> records, int treeSize){
 		String id = node.attr("id")==null?"":node.attr("id").toLowerCase();
 		String name = node.attr("name")==null?"":node.attr("name").toLowerCase();
 		String cls = node.attr("class")==null?"":node.attr("class").toLowerCase();
@@ -43,6 +46,8 @@ public class TitleHandler extends FieldHandler {
 		}
 		if(node.nodeName()=="#text"){
 			String text = node.toString().toLowerCase().trim();
+			if(text.length()==0 || text.length()>=300)
+				return;
 			String lcs = lcs(text,this.htmlTitle);
 			double score = lcs.length()/(double)Math.max(this.htmlTitle.length(),text.length());
 			Features f = records.get(nodeId);
@@ -51,16 +56,43 @@ public class TitleHandler extends FieldHandler {
 			}
 			records.put(nodeId, f);
 			if( this.titleCounter<=0){
-				f.addFeature("titleInAttr", false);
-				f.addFeature("text", text);
+				f.addFeature("titleInAttr", 0);
+//				f.addFeature("text", text);
 				f.addFeature("similarity", score);
-				f.addFeature("siquentialId", nodeId);
-				return;
+				f.addFeature("location", nodeId/(float)treeSize);
 			}else{
-				f.addFeature("titleInAttr", true);
-				f.addFeature("text", text);
+				f.addFeature("titleInAttr", 1);
+//				f.addFeature("text", text);
 				f.addFeature("similarity", score);
-				f.addFeature("siquentialId", nodeId);
+				f.addFeature("location", nodeId/(float)treeSize);
+			}
+			Node parent = node.parent();
+			if(this.website.indexOf("Amazon")>=0){
+				//labeling Amazon
+				if(parent.attr("id").contains("productTitle")){
+					f.addFeature("class", 1);			
+				} else {
+					f.addFeature("class", 0);
+				}
+			} else if(this.website.indexOf("ebay")>=0){
+				// labeling ebay
+				if(parent.attr("id").contains("vi-lkhdr-itmTitl")){
+					f.addFeature("class", 1);					
+				} else {
+					f.addFeature("class", 0);
+				}			
+			} else if(this.website.indexOf("Alibaba")>=0){
+				// labeling Alibaba
+				if(parent.attr("class").contains("title fn")){
+					f.addFeature("class", 1);	
+				} else {
+					f.addFeature("class", 0);
+				}
+			} else if(this.website.indexOf("walmart")>=0){
+				// labeling Walmart
+				if(parent.attr("class").contains("product-name"))
+					f.addFeature("class", 1);
+				else f.addFeature("class", 0);
 			}
 			
 		}		
