@@ -87,10 +87,29 @@ public class ImageHandler extends FieldHandler{
 			f.addFeature("similarity", altTitleSimiScore);
 			f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
 			
-			if(!hasScaling && !inTable && !inList && node.attr("style").indexOf("display:none;")>=0 && node.parent().attr("id").indexOf("rwImages_hidden")>=0)
+			// labeling Amazon
+/*			if(!hasScaling && !inTable && !inList && node.attr("style").indexOf("display:none;")>=0 && node.parent().attr("id").indexOf("rwImages_hidden")>=0)
+				f.addFeature("class", 1);
+			else f.addFeature("class", 0);*/
+			
+			// labeling ebay
+/*			if(node.attr("id").indexOf("icImg")>=0 && node.attr("class").indexOf("img img300")>=0 && node.attr("itemprop").indexOf("image")>=0 && node.attr("onload").startsWith("picTimer=new"))
+				f.addFeature("class", 1);
+			else f.addFeature("class", 0);*/
+			
+			// labeling Alibaba
+/*			if(node.attr("class").indexOf("photo pic J-pic")>=0 && node.attr("itemprop").indexOf("image")>=0 && node.parent().attr("class").indexOf("ione J-item")>=0)
+				f.addFeature("class", 1);
+			else
+				if (node.parent().attr("rel").indexOf("nofollow")>=0 && node.parent().attr("href").indexOf("javascript:void(0);")>=0 && node.parent().parent().attr("class").indexOf("thumb")>=0)
+					f.addFeature("class", 1);
+				else f.addFeature("class", 0);*/
+			
+			// labeling Walmart
+			if(node.attr("class").indexOf("product-image js-product-image js-product-primary-image")>=0)
 				f.addFeature("class", 1);
 			else f.addFeature("class", 0);
+			
 		}
 	}
-
 }

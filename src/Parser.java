@@ -22,7 +22,7 @@ public class Parser {
 //		File input = new File("/Users/peijiang/tim245/169694643.html");
 //		File input = new File("/Users/peijiang/tim245/B0000A1ZMS.html");
 //		File input = new File("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\pages\\Amazon\\coffe_makers\\B0000YWF5E.html");
-		File input = new File("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\pages\\Amazon");
+		File input = new File("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\pages\\walmart");
 		final TitleHandler titleHandler = new TitleHandler();
 		final PriceHandler priceHandler = new PriceHandler();
 		final ImageHandler imageHandler = new ImageHandler();
@@ -66,7 +66,7 @@ public class Parser {
 			try{
 //				outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures);
 //				outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
-				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\amazon_images.csv", imageFeatures, i++);
+				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\walmart_images.csv", imageFeatures, i++);
 				imageFeatures.clear();
 				titleFeatures.clear();
 			//	outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\prices.csv", priceFeatures);
