@@ -17,8 +17,8 @@ public class Parser {
 
 	public static void main(String[] args) throws IOException{
 //		File input = new File("/Users/peijiang/tim245/169694643.html");
-//		File input = new File("/Users/peijiang/tim245/B0000A1ZMS.html");
-		File input = new File("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\pages\\Amazon\\coffe_makers\\B0000A1ZMS.html");
+		File input = new File("/Users/peijiang/tim245/B0000A1ZMS.html");
+//		File input = new File("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\pages\\Amazon\\coffe_makers\\B0000A1ZMS.html");
 		Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
 		final TitleHandler titleHandler = new TitleHandler();
 		final PriceHandler priceHandler = new PriceHandler();
@@ -54,10 +54,10 @@ public class Parser {
 			
 		});
 		try{
-//			outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures);
-//			outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
-			outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\images.csv", imageFeatures);
-			outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\prices.csv", priceFeatures);
+			outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures);
+			outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
+//			outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\images.csv", imageFeatures);
+//			outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\prices.csv", priceFeatures);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
