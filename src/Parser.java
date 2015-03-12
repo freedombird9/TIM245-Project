@@ -135,8 +135,10 @@ public class Parser {
 		// print attribute name only for the first time
 		if (i == 0)
 			printAttrName = true;
-		else printAttrName = false;
+		else 
+			printAttrName = false;
 		
+		System.out.println(features.size());
 		for( int recordId:features.keySet()){
 			Features record = features.get(recordId);
 			boolean printComma = false;
@@ -150,8 +152,8 @@ public class Parser {
 					pw.print(featureName);
 				}
 				printAttrName = false;
+				pw.println();
 			}
-			pw.println();
 			printComma = false;
 			for(String featureName : record.getKeys()){
 				if(printComma){
