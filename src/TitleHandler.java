@@ -8,6 +8,10 @@ public class TitleHandler extends FieldHandler {
 	int titleCounter = 0;
 	int titleLastSeen = -1;
 	boolean inBody = false;
+	int treeSize=0;
+	public TitleHandler(int treeSize){
+		this.treeSize = treeSize;
+	}
 	public void start(Node node, int nodeId, HashMap <Integer, Features> records){
 		String id = node.attr("id")==null?"":node.attr("id").toLowerCase();
 		String name = node.attr("name")==null?"":node.attr("name").toLowerCase();
@@ -60,6 +64,14 @@ public class TitleHandler extends FieldHandler {
 			}
 			
 		}		
+	}
+	public double distanceToTitle(int nodeId){
+		if(this.titleLastSeen<0){
+			return 1;
+		}else{
+			double dist =(nodeId-this.titleLastSeen)/(double)treeSize;
+			return dist;
+		}
 	}
 	
 	public void end(Node node, HashMap <Integer, Features> records){

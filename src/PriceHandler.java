@@ -72,7 +72,7 @@ public class PriceHandler {
 				f.addFeature("priceInAttr", priceInAttr);
 				f.addFeature("currency", true);
 				f.addFeature("listPrice", inList);
-				f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
+				f.addFeature("distanceToTitle", titleHandler.distanceToTitle(nodeId));
 				f.addFeature("sequentialId", nodeId);
 				inDollarSign=false;
 				if(inList)
@@ -94,7 +94,7 @@ public class PriceHandler {
 			f.addFeature("priceInAttr", priceInAttr);
 			f.addFeature("currency", false);
 			f.addFeature("listPrice", inList);
-			f.addFeature("distanceToTitle", (nodeId-titleHandler.titleLastSeen)/(double)nodeId);
+			f.addFeature("distanceToTitle", titleHandler.distanceToTitle(nodeId));
 			f.addFeature("sequentialId", nodeId);
 		}
 	}
