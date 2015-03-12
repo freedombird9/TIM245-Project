@@ -36,9 +36,6 @@ public class Parser {
 		final HashMap <Integer, Features> titleFeatures = new HashMap <Integer, Features>();
 		final HashMap <Integer, Features> priceFeatures = new HashMap <Integer, Features>();
 		final HashMap <Integer, Features> imageFeatures = new HashMap <Integer, Features>();
-		
-	//	final HashMap<Integer, Features> allFeature = new HashMap <Integer, Features>();
-		
 		final HashMap <Node, Integer> idMap = new HashMap <Node, Integer>();
 		ArrayList <String> files = new ArrayList<String>();
 		getFiles(input, files);
@@ -70,10 +67,9 @@ public class Parser {
 				public void head(Node node, int depth) {
 					// TODO Auto-generated method stub
 					int sequentialNodeId = info.sequentialId++;//idMap.size();
-					//System.out.println("node hash "+ sequentialNodeId);
 					idMap.put(node, sequentialNodeId);
 					titleHandler.start(node, sequentialNodeId, titleFeatures);
-					priceHandler.start(node,titleHandler,depth, priceFeatures);
+				//	priceHandler.start(node,titleHandler,depth, priceFeatures);
 					imageHandler.start(node, titleHandler, sequentialNodeId, depth, imageFeatures);
 				}
 
@@ -82,24 +78,18 @@ public class Parser {
 					// TODO Auto-generated method stub
 					titleHandler.end(node, titleFeatures);					
 					Node hid = node.nodeName()=="#text"?node.parent():node;
-					priceHandler.end(node,titleHandler, idMap.get(hid), depth, priceFeatures);
+				//	priceHandler.end(node,titleHandler, idMap.get(hid), depth, priceFeatures);
 					imageHandler.end(node, titleHandler, idMap.get(hid), depth, imageFeatures);
-				//	mergeFeatures(idMap.get(hid), allFeature, titleFeatures.get(idMap.get(hid)), priceFeatures.get(idMap.get(hid)), imageFeatures.get(idMap.get(hid)));
 				}
 			});
 			try{
 //				outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures);
-
 //				outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
 				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\"+website+"_images.csv", imageFeatures, i++);
 
 				//outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures,i++);
-//				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\amazon_images.csv", imageFeatures, i++);
-
 				imageFeatures.clear();
 				titleFeatures.clear();
-			//	outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\prices.csv", priceFeatures);
-			//	outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\all.csv", allFeature);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -148,7 +138,7 @@ public class Parser {
 		else 
 			printAttrName = false;
 		
-		System.out.println(features.size());
+	//	System.out.println(features.size());
 		for( int recordId:features.keySet()){
 			Features record = features.get(recordId);
 			boolean printComma = false;
@@ -176,7 +166,7 @@ public class Parser {
 				else
 					pw.print(record.getFeature(featureName));
 			}
-			//pw.println();
+			pw.println();
 		}
 		pw.close();
 	}
