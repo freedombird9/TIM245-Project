@@ -11,12 +11,14 @@ import java.util.List;
 public class FilerMerger {
 	public static void main(String[] args) throws IOException {
 		
-		String file1 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\Alibaba_images.csv";
-		String file2 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\Amazon_images.csv";
-		String file3 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\ebay_images.csv";
-		String file4 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\walmart_images.csv";
+		final String category = "prices";
 		
-		String mergedFile = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\all_images.csv";
+		String file1 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\Alibaba_" + category + ".csv";
+		String file2 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\Amazon_" + category + ".csv";
+		String file3 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\ebay_" + category + ".csv";
+		String file4 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\walmart_" + category + ".csv";
+		
+		String mergedFile = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\all_" + category + ".csv";
 		
 	    List<Path> paths = Arrays.asList(Paths.get(file1), Paths.get(file2), Paths.get(file3), Paths.get(file4));
 	    List<String> mergedLines = getMergedLines(paths);
