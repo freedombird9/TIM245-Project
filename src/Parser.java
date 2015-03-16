@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,19 +27,16 @@ public class Parser {
 //		File input = new File("/Users/peijiang/tim245/B0000A1ZMS.html");
 //		File input = new File("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\pages\\Amazon\\coffe_makers\\B0000YWF5E.html");
 
-		String website = "Alibaba";
+		String website = "walmart";
 		
 //		File input = new File("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\pages\\"+website);
-		File input = new File("/Users/peijiang/tim245/testtitle/alibaba/");
+		File input = new File("/Users/peijiang/tim245/testtitle/walmart/");
 //		File input = new File("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\pages\\Amazon");
 
 
 		final HashMap <Integer, Features> titleFeatures = new HashMap <Integer, Features>();
 		final HashMap <Integer, Features> priceFeatures = new HashMap <Integer, Features>();
 		final HashMap <Integer, Features> imageFeatures = new HashMap <Integer, Features>();
-		
-	//	final HashMap<Integer, Features> allFeature = new HashMap <Integer, Features>();
-		
 		final HashMap <Node, Integer> idMap = new HashMap <Node, Integer>();
 		ArrayList <String> files = new ArrayList<String>();
 		getFiles(input, files);
@@ -70,7 +68,6 @@ public class Parser {
 				public void head(Node node, int depth) {
 					// TODO Auto-generated method stub
 					int sequentialNodeId = info.sequentialId++;//idMap.size();
-					//System.out.println("node hash "+ sequentialNodeId);
 					idMap.put(node, sequentialNodeId);
 					titleHandler.start(node, sequentialNodeId, titleFeatures, info.sizeOfTree);
 //					priceHandler.start(node,titleHandler,depth, priceFeatures);
@@ -90,6 +87,7 @@ public class Parser {
 			try{
 				outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures, i++);
 
+
 //				outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
 //				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\"+website+"_images.csv", imageFeatures, i++);
 
@@ -98,8 +96,6 @@ public class Parser {
 
 //				imageFeatures.clear();
 				titleFeatures.clear();
-			//	outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\prices.csv", priceFeatures);
-			//	outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\all.csv", allFeature);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -139,7 +135,8 @@ public class Parser {
 	
 	
 	private static void outputCsv(String outPath, HashMap <Integer, Features> features, int i) throws IOException{
-		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(outPath, true)));
+		PrintWriter pw = new PrintWriter(new FileOutputStream(new File(outPath),true));
+//		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(outPath, true)));
 		boolean printAttrName;
 		
 		// print attribute name only for the first time
@@ -148,7 +145,7 @@ public class Parser {
 		else 
 			printAttrName = false;
 		
-		System.out.println(features.size());
+	//	System.out.println(features.size());
 		for( int recordId:features.keySet()){
 			Features record = features.get(recordId);
 			boolean printComma = false;
