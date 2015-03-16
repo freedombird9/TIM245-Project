@@ -11,15 +11,23 @@ import java.util.List;
 public class FilerMerger {
 	public static void main(String[] args) throws IOException {
 		
-		String file1 = "/Users/peijiang/tim245/amazon1.csv";
+/*		String file1 = "/Users/peijiang/tim245/amazon1.csv";
 		String file2 = "/Users/peijiang/tim245/amazon2.csv";
 		String file3 = "/Users/peijiang/tim245/walmart.csv";
 		String file4 = "/Users/peijiang/tim245/alibaba.csv";
 		String file5 = "/Users/peijiang/tim245/ebay.csv";
 		
-		String mergedFile = "/Users/peijiang/tim245/merged.csv";
+		String mergedFile = "/Users/peijiang/tim245/merged.csv";*/
+		final String category = "prices";
 		
-	    List<Path> paths = Arrays.asList(Paths.get(file1), Paths.get(file2), Paths.get(file3), Paths.get(file4), Paths.get(file5));
+		String file1 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\Alibaba_" + category + ".csv";
+		String file2 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\Amazon_" + category + ".csv";
+		String file3 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\ebay_" + category + ".csv";
+		String file4 = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\walmart_" + category + ".csv";
+		
+		String mergedFile = "C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\all_" + category + ".csv";
+		
+	    List<Path> paths = Arrays.asList(Paths.get(file1), Paths.get(file2), Paths.get(file3), Paths.get(file4));
 	    List<String> mergedLines = getMergedLines(paths);
 	    Path target = Paths.get(mergedFile);
 	    Files.write(target, mergedLines, Charset.forName("UTF-8"));

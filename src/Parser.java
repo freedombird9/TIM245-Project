@@ -36,7 +36,7 @@ public class Parser {
 
 		final HashMap <Integer, Features> titleFeatures = new HashMap <Integer, Features>();
 		final HashMap <Integer, Features> priceFeatures = new HashMap <Integer, Features>();
-		final HashMap <Integer, Features> imageFeatures = new HashMap <Integer, Features>();
+//		final HashMap <Integer, Features> imageFeatures = new HashMap <Integer, Features>();
 		final HashMap <Node, Integer> idMap = new HashMap <Node, Integer>();
 		ArrayList <String> files = new ArrayList<String>();
 		getFiles(input, files);
@@ -60,18 +60,19 @@ public class Parser {
 				}
 				
 			});
-			final TitleHandler titleHandler = new TitleHandler(info.sizeOfTree,website);
-			final PriceHandler priceHandler = new PriceHandler();
-			final ImageHandler imageHandler = new ImageHandler(website);
+
+			final TitleHandler titleHandler = new TitleHandler(info.sizeOfTree, website);
+			final PriceHandler priceHandler = new PriceHandler(website);
+//			final ImageHandler imageHandler = new ImageHandler(website);
 			doc.traverse(new NodeVisitor(){
 				@Override
 				public void head(Node node, int depth) {
 					// TODO Auto-generated method stub
 					int sequentialNodeId = info.sequentialId++;//idMap.size();
 					idMap.put(node, sequentialNodeId);
-					titleHandler.start(node, sequentialNodeId, titleFeatures, info.sizeOfTree);
-//					priceHandler.start(node,titleHandler,depth, priceFeatures);
-//					imageHandler.start(node, titleHandler, sequentialNodeId, depth, imageFeatures);
+					titleHandler.start(node, sequentialNodeId, titleFeatures);
+					priceHandler.start(node,titleHandler,depth, priceFeatures);
+				//	imageHandler.start(node, titleHandler, sequentialNodeId, depth, imageFeatures);
 				}
 
 				@Override
@@ -79,9 +80,9 @@ public class Parser {
 					// TODO Auto-generated method stub
 					titleHandler.end(node, titleFeatures);					
 					Node hid = node.nodeName()=="#text"?node.parent():node;
-//					priceHandler.end(node,titleHandler, idMap.get(hid), depth, priceFeatures);
-//					imageHandler.end(node, titleHandler, idMap.get(hid), depth, imageFeatures);
-				//	mergeFeatures(idMap.get(hid), allFeature, titleFeatures.get(idMap.get(hid)), priceFeatures.get(idMap.get(hid)), imageFeatures.get(idMap.get(hid)));
+
+					priceHandler.end(node,titleHandler, idMap.get(hid), depth, priceFeatures);
+				//	imageHandler.end(node, titleHandler, idMap.get(hid), depth, imageFeatures);
 				}
 			});
 			try{
@@ -89,19 +90,16 @@ public class Parser {
 
 
 //				outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
-//				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\"+website+"_images.csv", imageFeatures, i++);
 
-				//outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures,i++);
-//				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\amazon_images.csv", imageFeatures, i++);
-
-//				imageFeatures.clear();
+		//		outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\"+website+"_images.csv", imageFeatures, i++);
+				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\"+website+"_prices.csv", priceFeatures, i++);
+			//	imageFeatures.clear();
 				titleFeatures.clear();
+				priceFeatures.clear();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-		}
-		
-		System.out.println("Number of files: " + i);		
+		}	
 	}
 	
 /*	@SafeVarargs
@@ -129,6 +127,7 @@ public class Parser {
 		} else{
 			if(node.getName().endsWith(".html"))
 				filePaths.add(node.getAbsolutePath());
+//				System.out.println(node.getAbsolutePath());
 		}
  
 	}
