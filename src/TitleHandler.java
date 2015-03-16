@@ -19,6 +19,7 @@ public class TitleHandler extends FieldHandler {
 		String id = node.attr("id")==null?"":node.attr("id").toLowerCase();
 		String name = node.attr("name")==null?"":node.attr("name").toLowerCase();
 		String cls = node.attr("class")==null?"":node.attr("class").toLowerCase();
+		String item = node.attr("itemprop")==null?"":node.attr("itemprop").toLowerCase();
 		if(node.nodeName()=="body"){
 			this.inBody=true;
 		}
@@ -41,6 +42,10 @@ public class TitleHandler extends FieldHandler {
 			titleLastSeen = nodeId;
 		}
 		if(name!=null && name.indexOf("title")>=0){
+			titleLastSeen = nodeId;
+			this.titleCounter++;
+		}
+		if(item!=null && item.indexOf("title")>=0){
 			titleLastSeen = nodeId;
 			this.titleCounter++;
 		}
@@ -110,6 +115,7 @@ public class TitleHandler extends FieldHandler {
 		String cls = node.attr("class")==null?"":node.attr("class").toLowerCase();
 		String id = node.attr("id")==null?"":node.attr("id").toLowerCase();
 		String name = node.attr("name")==null?"":node.attr("name").toLowerCase();
+		String item = node.attr("itemprop")==null?"":node.attr("itemprop").toLowerCase();
 		if(node.nodeName().indexOf("title")>=0){
 //			info.titleCounter--;
 		}
@@ -120,6 +126,9 @@ public class TitleHandler extends FieldHandler {
 			this.titleCounter--;
 		}
 		if(name!=null && name.indexOf("title")>=0){
+			this.titleCounter--;
+		}
+		if(item!=null && item.indexOf("title")>=0){
 			this.titleCounter--;
 		}
 	}

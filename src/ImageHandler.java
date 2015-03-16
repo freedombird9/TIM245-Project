@@ -68,7 +68,6 @@ public class ImageHandler extends FieldHandler{
 	}
 	
 
-	@Override
 	public void end(Node node, TitleHandler titleHandler, int nodeId, int depth,
 			HashMap<Integer, Features> records) {
 		// TODO Auto-generated method stub

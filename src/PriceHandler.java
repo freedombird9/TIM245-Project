@@ -177,7 +177,7 @@ public class PriceHandler {
 	private boolean onlyCurrency(String text){
 		if(text == null || text.length()==0)
 			return false;
-		if(text=="$"|| text=="eu" || text=="us" || text=="gbp")
+		if(text.equals("$")|| text.equals("eu") || text.equals("us") || text.equals("gbp"))
 			return true;
 		
 		return false;

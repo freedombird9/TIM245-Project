@@ -41,14 +41,14 @@ public class Parser {
 		ArrayList <String> files = new ArrayList<String>();
 		getFiles(input, files);
 		int i=0;
-		for(String file: files){		
+		for(String file: files){	
 			final HtmlInfo info = new HtmlInfo();
-			//System.out.println(file + "  " + i++);
+//			System.out.println(file + "  " + i++);
 			Document doc = Jsoup.parse(new File(file), "UTF-8", "http://example.com/");
 			//first pass, just to compute the tree size
 			doc.traverse(new NodeVisitor(){
 				@Override
-				public void head(Node arg0, int arg1) {
+				public void head(Node node, int arg1) {
 					// TODO Auto-generated method stub
 					info.sizeOfTree++;
 				}
@@ -70,7 +70,7 @@ public class Parser {
 					// TODO Auto-generated method stub
 					int sequentialNodeId = info.sequentialId++;//idMap.size();
 					idMap.put(node, sequentialNodeId);
-					titleHandler.start(node, sequentialNodeId, titleFeatures);
+					titleHandler.start(node, sequentialNodeId, titleFeatures, info.sizeOfTree);
 					priceHandler.start(node,titleHandler,depth, priceFeatures);
 				//	imageHandler.start(node, titleHandler, sequentialNodeId, depth, imageFeatures);
 				}
@@ -86,13 +86,13 @@ public class Parser {
 				}
 			});
 			try{
-				outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures, i++);
+//				outputCsv("/Users/peijiang/tim245/titles.csv", titleFeatures, i++);
 
 
-//				outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures);
+				outputCsv("/Users/peijiang/tim245/prices.csv", priceFeatures,i++);
 
 		//		outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\"+website+"_images.csv", imageFeatures, i++);
-				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\"+website+"_prices.csv", priceFeatures, i++);
+//				outputCsv("C:\\Users\\Administrator\\Documents\\TIM245\\project\\data\\"+website+"_prices.csv", priceFeatures, i++);
 			//	imageFeatures.clear();
 				titleFeatures.clear();
 				priceFeatures.clear();

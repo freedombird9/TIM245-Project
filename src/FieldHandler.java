@@ -4,7 +4,7 @@ import org.jsoup.nodes.Node;
 
 
 public class FieldHandler {
-	public void start(Node node, TitleHandler titleHandler, int nodeId, int depth, HashMap<Integer, Features> records){
+/*	public void start(Node node, TitleHandler titleHandler, int nodeId, int depth, HashMap<Integer, Features> records){
 		
 	}
 	public void start(Node node, int nodeId, HashMap <Integer, Features> records){
@@ -16,7 +16,7 @@ public class FieldHandler {
 	}
 	public void end(Node node, int nodeId, HashMap <Integer, Features> records){
 		
-	}
+	}*/
 	
 	protected String lcs(String a, String b) {
 	    int[][] lengths = new int[a.length()+1][b.length()+1];
